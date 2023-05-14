@@ -31,7 +31,7 @@ app.post('/sends', (req, res) => {
     req.session.user = username;
     res.json({ success: true });
   } else {
-    res.json({ success: true });
+    res.json({ success: false });
   }
 });
 
