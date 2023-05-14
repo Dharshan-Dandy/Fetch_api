@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login Page</title>
+  
+  
+</head>
+<body>
+  <h1>Login</h1>
+  <form  onsubmit="calling(event)" id="forming">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required>
+    <button id="login-btn">Log In</button>
+  </form>
+  <p id="message"></p>
+  <script>
+    const loginForm = document.getElementById('forming');
+    const loginBtn = document.getElementById('login-btn');
+    const messageElem = document.getElementById('message');
+    
+    //loginBtn.addEventListener('mouseover',function(){alert('var')});
+    
+    function calling(event) {
+      event.preventDefault();
+      
+      var formData = new FormData(loginForm);
+      
+
+      fetch('http://localhost:3000/sends', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          messageElem.textContent = 'Login successful!';
+          // Redirect to the home page or dashboard
+          alert('SUCCESS');
+          messageElem.textContent = 'Valid username and password';
+        
+        } else {
+          messageElem.textContent = 'Invalid username or password';
+          alert("NOT SUCCESS");
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    }
+    </script>
+</body>
+</html>
