@@ -8,14 +8,11 @@ const app = express();
 const saltRounds = 10;
 
 // Middleware
+app.use(express.json())
 app.use(cors());
 app.use(express.static('public'));
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(session({
-  secret: 'secret',
-  resave: false,
-  saveUninitialized: false
-}));
+app.use(bodyParser.urlencoded({ extended: true}));
+
 
 // Routes
 app.get('/', (req, res) => {
@@ -23,12 +20,13 @@ app.get('/', (req, res) => {
 });
 
 app.post('/sends', (req, res) => {
-  console.log("varuthu");
+ 
   const { username, password } = req.body;
-  console.log(username);
+  console.log(req.body.username);
+  
   // Check if the username and password are valid
-  if (username === 'myusername' && password === 'mypassword') {
-    req.session.user = username;
+  if (username === 'm' && password === 'm') {
+    
     res.json({ success: true });
   } else {
     res.json({ success: false });
